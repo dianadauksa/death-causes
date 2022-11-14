@@ -6,6 +6,7 @@ class Row {
     private string $nonViolentCause;
     private string $violentType;
     private string $violentCause;
+    public array $allCauses = [];
 
     public function __construct(string $date, string $typeOfDeath, string $nonViolentCause, string $violentType, string $violentCause) {
         $this->date = $date;
@@ -17,35 +18,6 @@ class Row {
 
     public function removeDuplicates(string $deathType): string {
         return implode(";", array_unique(explode(";", $deathType)));
-    }
-
-    public function getDate(): string {
-        return $this->date;
-    }
-
-    public function getTypeOfDeath(): string {
-        return $this->typeOfDeath;
-    }
-
-    public function getNonViolentCause(): ?string {
-        if (strlen($this->nonViolentCause) == 0) {
-            return null;
-        }
-        return $this->nonViolentCause;
-    }
-
-    public function getViolentType(): ?string {
-        if (strlen($this->violentType) == 0) {
-            return null;
-        }
-        return $this->removeDuplicates($this->violentType);
-    }
-
-    public function getViolentCause(): ?string {
-        if (strlen($this->violentCause) == 0) {
-            return null;
-        }
-        return $this->violentCause;
     }
 
     public function getRow(): string {
@@ -60,5 +32,16 @@ class Row {
 
     public function getHeaderRow(): string {
             return "$this->date: $this->typeOfDeath | $this->nonViolentCause | $this->violentType | $this->violentCause" . PHP_EOL;
+    }
+
+    public function addToAllCauses(): void {
+        $this->allCauses [] = strtolower($this->typeOfDeath);
+        $this->allCauses = array_merge(explode(";", strtolower($this->nonViolentCause)), $this->allCauses);
+        $this->allCauses [] = strtolower($this->removeDuplicates($this->violentType));
+        $this->allCauses = array_merge(explode(";", strtolower($this->violentCause)), $this->allCauses);
+    }
+
+    public function getAllCauses(): array {
+        return $this->allCauses;
     }
 }

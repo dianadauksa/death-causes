@@ -18,9 +18,10 @@ if (($handle = fopen(DATA, "r")) !== false) {
     fclose($handle);
 }
 
+$data->setAllCauses();
 $searchFor = readline('Enter a type of death or death cause to search for >> ');
-echo "Your search matched {$data->getDeathRecord($searchFor)} records from {$data->getTotalDeathRecords()}." . PHP_EOL;
-echo "This is approximately {$data->getPercentage($searchFor)}% of all deaths in the past year" . PHP_EOL;
+echo "Your search matched {$data->searchCause($searchFor)} records from {$data->getTotalDeathRecords()}." . PHP_EOL;
+echo "This is approximately {$data->getPercentage($searchFor)}% of all deaths" . PHP_EOL;
 
 /* Prints a table of all data in the format => 2021-03: Vardarbīga nāve | Nelaimes gadījumi sadzīvē | Mehāniskie bojājumi;trulu priekšmetu iedarbības rezultāts
  echo str_replace("_", " ", $data->getHeader()->getHeaderRow());
