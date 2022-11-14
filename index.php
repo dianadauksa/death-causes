@@ -23,6 +23,10 @@ $searchFor = readline('Enter a type of death or death cause to search for >> ');
 echo "Your search matched {$data->searchCause($searchFor)} records from {$data->getTotalDeathRecords()}." . PHP_EOL;
 echo "This is approximately {$data->getPercentage($searchFor)}% of all deaths this year." . PHP_EOL;
 
+/*foreach(CAUSES as $cause) {
+    echo $cause . " was found {$data->searchCause($cause)} times in all {$data->getTotalDeathRecords()} records" . PHP_EOL;
+}*/
+
 /* Prints a table of all data in the format => 2021-03: Vardarbīga nāve | Nelaimes gadījumi sadzīvē | Mehāniskie bojājumi;trulu priekšmetu iedarbības rezultāts
  echo str_replace("_", " ", $data->getHeader()->getHeaderRow());
  foreach ($data->getAllData() as $row) {
