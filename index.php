@@ -3,6 +3,7 @@
 require_once 'row.php';
 require_once 'datacollection.php';
 const DATA = 'causes-of-death.csv';
+require_once 'allcauses.php';
 
 $data = new DataCollection();
 $index = 0;
@@ -19,13 +20,14 @@ if (($handle = fopen(DATA, "r")) !== false) {
 }
 
 $data->setAllCauses();
-$searchFor = readline('Enter a type of death or death cause to search for >> ');
+/*$searchFor = readline('Enter a type of death or death cause to search for >> ');
 echo "Your search matched {$data->searchCause($searchFor)} records from {$data->getTotalDeathRecords()}." . PHP_EOL;
-echo "This is approximately {$data->getPercentage($searchFor)}% of all deaths this year." . PHP_EOL;
+echo "This is approximately {$data->getPercentage($searchFor)}% of all deaths this year." . PHP_EOL;*/
 
-/*foreach(CAUSES as $cause) {
-    echo $cause . " was found {$data->searchCause($cause)} times in all {$data->getTotalDeathRecords()} records" . PHP_EOL;
-}*/
+echo "Total death records {$data->getTotalDeathRecords()}. Of those >> " . PHP_EOL;
+foreach(CAUSES as $cause) {
+    echo $cause . " was found in {$data->searchCause($cause)}" . PHP_EOL;
+}
 
 /* Prints a table of all data in the format => 2021-03: Vardarbīga nāve | Nelaimes gadījumi sadzīvē | Mehāniskie bojājumi;trulu priekšmetu iedarbības rezultāts
  echo str_replace("_", " ", $data->getHeader()->getHeaderRow());
